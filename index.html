@@ -4,25 +4,27 @@
     <meta charset="utf-8">
     <title>Thinkful Tube</title>
     <link rel="stylesheet" href="main.css">
-    <link src= "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-    <link type= "text/javascript" src="app.js">
+
+
+  </div>
+  <body>
   </head>
   <div class="head">
     <h1>ThinkFul Tube</h1>
     <h2>Welcome to my AJAX example for the YouTube API.</h2>
     <h2>Below type in a search and enjoy!</h2>
     <div class="search">
-      <form id= "searcQuery">
-        <input type="text" class="searchForm" id="query" placeholder="Search here and enjoy">
+      <form id="searchQuery">
+        <input type="text" class="searchForm" id="searchTerm" placeholder="Search here and enjoy">
         <input type="submit" value="search" id="button">
       </form>
     </div>
   </div>
-  <div class="results">
+  <div id="results">
     <ul>
     </ul>
-  </div>
-  <body>
 
+    <script src= "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
+    <script type="text/javascript" src="app.js" />
   </body>
 </html>

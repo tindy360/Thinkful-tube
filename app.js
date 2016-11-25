@@ -1,32 +1,35 @@
-//declar the endpoint
-var youTubeUrl = 'https://www.googleapis.com/youtube/v3/search'
-// API fu
-function getData(searchTerm, callback) {
-    var settings = {
-        url: youTubeUrl,
-        data: {
-            key: AIzaSyAgwnaHjS5mnLPI_AM9sZVlHiPQsQOjtbk,
-            q: searchTerm,
-            part: 'snippet',
+function getResults(query) {
+    $.getJSON("https://www.googleapis.com/youtube/v3/search", {
+            "part": "snippet",
+            "key": "AIzaSyAgwnaHjS5mnLPI_AM9sZVlHiPQsQOjtbk",
+            "q": query
         },
-        dataType: 'json',
-        type: 'GET'
-        success: callback
-    };
-    $.ajax(settings);
-};
+        function(data) {
+            if (data.pageInfo.totalResults == 0) {
+                alert("No results found, try another search");
+            }
+            // If there are no results it will just empty the list
+            renderResults(data.items);
+        }
 
-// display the data that the user searches for
-
-
-
-// Listiner for submit and triger for above functions
-
-function formSubmit() {
-  $('#query').submit(function(event){
-  event.preventDefault();
-  var query = $(this).find('.searchForm').val();
-  getData(query,youTubeUrl);
-  console.log(getData)
-  });
+    );
 }
+//remder function
+function renderResults(videos) {
+    var html = "";
+    $.each(videos, function(index, video) {
+        // add HTML to results section
+        console.log(video.snippet.thumbnails.medium.url);
+        html = html + "<li><p>" + video.snippet.title +
+            "</p><img src='" + video.snippet.thumbnails.high.url + "'/></li>";
+
+    });
+    $("#results ul").html(html);
+};
+// event listener
+ $("#searchQuery").on("submit", function(event) {
+    event.preventDefault();
+    var query = $(this).find('.searchForm').val();
+    getData(query, youTubeUrl);
+    console.log(getData)
+});
